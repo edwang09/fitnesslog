@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_all_workouts"
+        android:title="Workout"
+        android:icon="@drawable/ic_workout"
+        />
+    <item
+        android:id="@+id/navigation_all_bodies"
+        android:icon="@drawable/ic_heart"
+        android:title="Body"
+        />
+    <item
+        android:id="@+id/navigation_all_calculators"
+        android:icon="@drawable/ic_tools"
+        android:title="Calculator"
+        />
+</menu>

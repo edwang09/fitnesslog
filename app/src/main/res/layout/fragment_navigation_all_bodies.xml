@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragments.AllBodyFragment"
+    android:orientation="vertical"
+    android:padding="@dimen/_8sdp">
+    <androidx.viewpager.widget.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/vp_body"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_250sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lv_body_weight">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/lv_body_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vp_body">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.25"
+            android:text="@string/body_data_weight"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_4sdp"/>
+
+        <TextView
+            android:id="@+id/tv_body_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="14.2"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/border"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_16sdp"/>
+        <TextView
+            android:id="@+id/tv_body_weight_suffix"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:text="lbs"
+            android:layout_gravity="center"
+            android:padding="@dimen/_4sdp"
+            android:textSize="@dimen/_16sdp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_body_weight_minus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_3sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:src="@drawable/ic_minus"
+            app:fabSize="mini"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_body_weight_plus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:src="@drawable/ic_add"
+            app:fabSize="mini"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lv_body_fat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lv_body_weight"
+            >
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text="@string/body_data_fat"
+                android:layout_weight="1.25"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_body_fat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="14.2"
+                android:padding="@dimen/_8sdp"
+                android:background="@drawable/border"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_16sdp"/>
+            <TextView
+                android:id="@+id/tv_body_fat_suffix"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:text="%"
+                android:layout_gravity="center"
+                android:padding="@dimen/_4sdp"
+                android:textSize="@dimen/_20sdp"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_body_fat_minus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:src="@drawable/ic_minus"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_3sdp"
+                app:fabSize="mini"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_body_fat_plus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:elevation="0dp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:src="@drawable/ic_add"
+                app:fabSize="mini" />
+        </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_body_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:src="@drawable/ic_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

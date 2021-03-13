@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Fitnesslog</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bmi_calculator_weight">Weight</string>
+    <string name="bmi_calculator_weight_helper_text">Please enter your weight</string>
+    <string name="bmi_calculator_unit">Use Metric</string>
+    <string name="bmi_calculator_height_foot_helper_text">Foot</string>
+    <string name="bmi_calculator_height_inch_helper_text">Inch</string>
+    <string name="bmi_calculator_height_centimeter_helper_text">Centimeter</string>
+    <string name="bmi_calculator_height">Height</string>
+    <string name="bmi_calculator_calculate_button">Calculate BMI</string>
+    <string name="bmi_calculator_clear_button">Clear Entry</string>
+    <string name="all_workout_fab_label">Add Routine</string>
+    <string name="all_workout_fab_description">Create a new routine</string>
+    <string name="new_routine_name_label">Routine name</string>
+    <string name="type_monday">Mon</string>
+    <string name="type_tuesday">Tue</string>
+    <string name="type_wednesday">Wed</string>
+    <string name="type_thursday">Thu</string>
+    <string name="type_friday">Fri</string>
+    <string name="type_saturday">Sat</string>
+    <string name="type_sunday">Sun</string>
+    <string name="type_on_demand">On demand</string>
+    <string name="label_empty">""</string>
+    <string name="label_holder">"    "</string>
+    <string name="all_exercise_fab_label">New Exercise</string>
+    <string name="all_exercise_fab_description">Create a new Exersice</string>
+    <string name="complete_exercise_fab_label">Complete a set</string>
+    <string name="complete_exercise_fab_description">completed a set</string>
+    <string name="end_exercise_fab_label">Finish Workout</string>
+    <string name="end_exercise_fab_description">complete workout</string>
+    <string name="body_data">Basic Body Data</string>
+    <string name="body_data_weight">Weight</string>
+    <string name="body_data_fat">Fat %</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="fat_calculator_calculate_button">Calculate Fat Percentage</string>
+    <string name="onerm_calculator_lift">Lift</string>
+    <string name="onerm_calculator_calculate_button">Calculate 1RM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>

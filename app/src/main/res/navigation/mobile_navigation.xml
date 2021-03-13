@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_all_workouts">
+
+
+    <fragment
+        android:id="@+id/navigation_all_workouts"
+        android:name="com.example.fitnesslog.view.fragments.AllWorkoutFragment"
+        android:label="Workouts"
+        tools:layout="@layout/fragment_navigation_all_workouts" >
+        <action
+            android:id="@+id/action_navigation_all_workouts_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_all_bodies"
+        android:name="com.example.fitnesslog.view.fragments.AllBodyFragment"
+        android:label="Bodies"
+        tools:layout="@layout/fragment_navigation_all_bodies" />
+    <fragment
+        android:id="@+id/navigation_all_calculators"
+        android:name="com.example.fitnesslog.view.fragments.AllCalculatorFragment"
+        android:label="Tools"
+        tools:layout="@layout/fragment_navigation_all_calculators" >
+        <action
+            android:id="@+id/action_navigation_all_calculators_to_bmiCalculator"
+            app:destination="@id/bmiCalculator" />
+        <action
+            android:id="@+id/action_navigation_all_calculators_to_fatCalculatorFragment"
+            app:destination="@id/fatCalculatorFragment" />
+        <action
+            android:id="@+id/action_navigation_all_calculators_to_oneRmCalculatorFragment"
+            app:destination="@id/oneRmCalculatorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bmiCalculator"
+        android:name="com.example.fitnesslog.view.fragments.BmiCalculatorFragment"
+        android:label="BMI Calculator"
+        tools:layout="@layout/fragment_bmi_calculator" />
+    <fragment
+        android:id="@+id/workoutFragment"
+        android:name="com.example.fitnesslog.view.fragments.WorkoutFragment"
+        android:label="WorkoutFragment" >
+
+        <argument
+            android:name="routineId"
+            app:argType="integer"
+            />
+
+    </fragment>
+    <fragment
+        android:id="@+id/fatCalculatorFragment"
+        android:name="com.example.fitnesslog.view.fragments.FatCalculatorFragment"
+        android:label="FatCalculatorFragment" />
+    <fragment
+        android:id="@+id/oneRmCalculatorFragment"
+        android:name="com.example.fitnesslog.view.fragments.OneRmCalculatorFragment"
+        android:label="OneRmCalculatorFragment" />
+</navigation>
