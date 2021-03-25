@@ -14,6 +14,7 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,45 +92,125 @@ public class AllWorkoutFragment extends Fragment implements
     public void deleteRoutine(Routine routine){
         mRoutineViewModel.deleteRoutine(routine);
     }
-
+    public void editRoutine(Routine routine){
+        this.showRoutineDialog(routine);
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fab_add_routine:
-                Dialog dialog = new Dialog(getActivity());
-                DialogNewRoutineLayoutBinding dBinding = DialogNewRoutineLayoutBinding.inflate(getLayoutInflater());
-                dBinding.chipColorPicker.check(dBinding.chipColorRed.getId());
-                dBinding.chipTypePicker.check(dBinding.chipTypeMonday.getId());
-                dBinding.btnRoutineCreate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String routineName = dBinding.evRoutineName.getEditText().getText().toString();
-                        String routineType =((Chip) dBinding.getRoot().findViewById(dBinding.chipTypePicker.getCheckedChipId())).getText().toString() ;
-                        Integer routineColor = ((Chip) dBinding.getRoot().findViewById(dBinding.chipColorPicker.getCheckedChipId())).getChipBackgroundColor().getDefaultColor();
-                        if (routineName != ""){
-                            Routine routine = new Routine(routineName,routineType,routineColor);
-                            long routineId = 0;
-                            try {
-                                routineId = mRoutineViewModel.insertRoutine(routine);
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            Toast.makeText(getContext() ,"You have created a new routine :" + routineId,Toast.LENGTH_LONG).show();
-                            dialog.dismiss();
-                        }
-                    }
-                });
-                dialog.setTitle("Add new Routine");
-                dialog.setContentView(dBinding.getRoot());
-                dialog.getWindow().setLayout(1000, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.show();
+                this.showRoutineDialog(new Routine());
 
                 break;
             default:
                 break;
         }
+    }
+
+
+    public void showRoutineDialog(Routine routine){
+        Dialog dialog = new Dialog(getActivity());
+        DialogNewRoutineLayoutBinding dBinding = DialogNewRoutineLayoutBinding.inflate(getLayoutInflater());
+        dBinding.evRoutineName.getEditText().setText(routine.name);
+        int typeChipId = dBinding.chipTypeMonday.getId();
+        int colorChipId = dBinding.chipColorRed.getId();
+        switch (routine.type){
+            case "Mon" :
+                typeChipId = dBinding.chipTypeMonday.getId();
+                break;
+            case "Tue" :
+                typeChipId = dBinding.chipTypeTuesday.getId();
+                break;
+
+            case "Wed" :
+                typeChipId = dBinding.chipTypeWednesday.getId();
+                break;
+
+            case "Thu" :
+                typeChipId = dBinding.chipTypeThursday.getId();
+                break;
+
+            case "Fri" :
+                typeChipId = dBinding.chipTypeFriday.getId();
+                break;
+
+            case "Sat" :
+                typeChipId = dBinding.chipTypeSaturday.getId();
+                break;
+
+            case "Sun" :
+                typeChipId = dBinding.chipTypeSunday.getId();
+                break;
+            case "On demand" :
+                typeChipId = dBinding.chipTypeOnDemand.getId();
+                break;
+            default:
+                break;
+        }
+        switch (routine.color){
+            case -437935 :
+                colorChipId = dBinding.chipColorRed.getId();
+                break;
+            case -330670 :
+                colorChipId = dBinding.chipColorYellow.getId();
+                break;
+            case -11339148 :
+                colorChipId = dBinding.chipColorGreen.getId();
+                break;
+            case -11185414 :
+                colorChipId = dBinding.chipColorBlue.getId();
+                break;
+            case -349102 :
+                colorChipId = dBinding.chipColorOrange.getId();
+                break;
+            case -372038 :
+                colorChipId = dBinding.chipColorPink.getId();
+                break;
+            case -2600198 :
+                colorChipId = dBinding.chipColorPurple.getId();
+                break;
+            case -11339028 :
+                colorChipId = dBinding.chipColorAqua.getId();
+                break;
+            default:
+                break;
+        }
+        dBinding.chipColorPicker.check(colorChipId);
+        dBinding.chipTypePicker.check(typeChipId);
+        dBinding.chipColorPicker.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ChipGroup group, int checkedId) {
+                int color = ((Chip) dBinding.getRoot().findViewById(checkedId)).getChipBackgroundColor().getDefaultColor();
+                Log.i("workout color picker", String.valueOf(color));
+            }
+        });
+        dBinding.btnRoutineCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String routineName = dBinding.evRoutineName.getEditText().getText().toString();
+                String routineType =((Chip) dBinding.getRoot().findViewById(dBinding.chipTypePicker.getCheckedChipId())).getText().toString() ;
+                Integer routineColor = ((Chip) dBinding.getRoot().findViewById(dBinding.chipColorPicker.getCheckedChipId())).getChipBackgroundColor().getDefaultColor();
+                if (routineName != ""){
+                    routine.name = routineName;
+                    routine.type = routineType;
+                    routine.color = routineColor;
+                    long routineId = 0;
+                    try {
+                        routineId = mRoutineViewModel.insertRoutine(routine);
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getContext() ,"You have created a new routine",Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+            }
+        });
+        dialog.setTitle("Add new Routine");
+        dialog.setContentView(dBinding.getRoot());
+        dialog.getWindow().setLayout(1000, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
     }
 }

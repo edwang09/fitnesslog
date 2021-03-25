@@ -15,17 +15,6 @@
             android:orientation="vertical">
 
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Workout Activity"
-                app:layout_constraintBottom_toTopOf="@id/rv_exercise_list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textSize="@dimen/_20sdp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_exercise_list"
                 android:layout_width="match_parent"

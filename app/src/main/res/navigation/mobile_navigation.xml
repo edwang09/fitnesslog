@@ -49,6 +49,9 @@
             android:name="routineId"
             app:argType="integer"
             />
+        <action
+            android:id="@+id/action_workoutFragment_to_selectExerciseFragment"
+            app:destination="@id/selectExerciseFragment" />
 
     </fragment>
     <fragment
@@ -59,4 +62,15 @@
         android:id="@+id/oneRmCalculatorFragment"
         android:name="com.example.fitnesslog.view.fragments.OneRmCalculatorFragment"
         android:label="OneRmCalculatorFragment" />
+    <fragment
+        android:id="@+id/selectExerciseFragment"
+        android:name="com.example.fitnesslog.view.fragments.SelectExerciseFragment"
+        android:label="fragment_select_exercise"
+        tools:layout="@layout/fragment_select_exercise">
+        <argument
+            android:name="routineId"
+            app:argType="integer"
+            />
+
+    </fragment>
 </navigation>

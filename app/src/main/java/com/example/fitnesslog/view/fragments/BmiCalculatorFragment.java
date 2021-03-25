@@ -101,6 +101,7 @@ public class BmiCalculatorFragment extends Fragment implements View.OnClickListe
         }
     }
     public void showBMIDialog(Float bmi, String explanation){
+        this.getView().clearFocus();
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setTitle("Your BMI is " + String.format("%.1f", bmi));
         builder.setIcon(R.drawable.ic_heart);

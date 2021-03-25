@@ -27,5 +27,9 @@ public class Routine {
         this.color = color;
         this.lastTrained = 0;
     }
-
+    public Routine() {
+        this.name = "";
+        this.type = "Mon";
+        this.color = 16339281;
+    }
 }

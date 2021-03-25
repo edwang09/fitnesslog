@@ -52,7 +52,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
         holder.flBackground.setBackgroundColor(r.color);
         holder.tvRoutineTitle.setText(r.name);
         if (r.lastTrained != 0){
-            holder.tvRoutineSubtitle.setText("Last time Trained " + (new Date()).compareTo(new Date(r.lastTrained)) + " day ago");
+            holder.tvRoutineSubtitle.setText("Last time Trained " + ((new Date()).getTime()- (new Date(r.lastTrained)).getTime())/(1000*60*60 * 24) + " days ago");
         }else{
             holder.tvRoutineSubtitle.setText("You have never trained this routine yet.");
         }
@@ -74,6 +74,8 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId() == R.id.action_delete_routine){
                             fragment.deleteRoutine(r);
+                        } else if (item.getItemId() == R.id.action_edit_routine){
+                            fragment.editRoutine(r);
                         }
                         return true;
                     }

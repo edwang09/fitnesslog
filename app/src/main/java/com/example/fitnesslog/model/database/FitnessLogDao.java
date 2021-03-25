@@ -18,7 +18,7 @@ import java.util.List;
 
 @Dao
 public interface FitnessLogDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertRoutine(Routine routine);
     @Insert
     void insertExercise(Exercise exercise);

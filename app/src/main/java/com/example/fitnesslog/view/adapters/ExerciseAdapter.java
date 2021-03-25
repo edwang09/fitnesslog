@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -108,7 +109,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             }
         });
 
-        holder.fabCompleteExercise.setOnClickListener(new View.OnClickListener() {
+        holder.btnCompleteExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mExercises.get(position).setNumber++;
@@ -167,7 +168,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         private final TextView tvExerciseRepOrDuration;
         private final Slider svExerciseResistanceSlider;
         private final Slider svRepOrDurationSlider;
-        private final ExtendedFloatingActionButton fabCompleteExercise;
+        private final Button btnCompleteExercise;
         private final TextView tvCompletedSet;
         private final ImageButton ibMore;
         public ViewHolder(@NonNull ItemExerciseLayoutBinding itemView ) {
@@ -180,7 +181,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             this.svRepOrDurationSlider = itemView.svRepOrDurationSlider;
             this.tvExerciseRepOrDurationTitle = itemView.tvExerciseRepOrDurationTitle;
             this.tvExerciseRepOrDuration = itemView.tvExerciseRepOrDuration;
-            this.fabCompleteExercise = itemView.fabCompleteExercise;
+            this.btnCompleteExercise = itemView.btnCompleteExercise;
             this.tvCompletedSet = itemView.tvCompletedSet;
             this.ibMore = itemView.ibMore;
 
