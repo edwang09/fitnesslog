@@ -55,11 +55,8 @@ public class SelectExerciseFragment extends Fragment {
 
         assert getArguments() != null;
         routineId = SelectExerciseFragmentArgs.fromBundle(getArguments()).getRoutineId();
-
-
         mBinding.rvExerciseList.setLayoutManager(new LinearLayoutManager(requireContext()));
         mExerciseItemAdapter = new ExerciseItemAdapter(this);
-//        ExerciseAdapter mExerciseAdapter = new ExerciseAdapter(this, routine.exercises);
         mBinding.rvExerciseList.setAdapter(mExerciseItemAdapter);
     }
     public void selectExercise(ExerciseItem exerciseItem){

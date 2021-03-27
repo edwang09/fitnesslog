@@ -107,9 +107,6 @@ public class BodyChartWeightFragment extends Fragment {
             }
         });
 
-//        Description d = new Description();
-//        d.setText("");
-//        lineChart.setDescription(d);
 
         lineChart.setData(lineData);
         lineChart.invalidate();

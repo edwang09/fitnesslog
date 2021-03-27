@@ -67,15 +67,8 @@ public class WorkoutFragment extends Fragment implements
         assert getArguments() != null;
         routineId = WorkoutFragmentArgs.fromBundle(getArguments()).getRoutineId();
 
-//        Exercise exercise = new Exercise("Bench Press", routineId);
-//        Log.i("Database","Call back run");
-//        mRoutineViewModel.insertExercise(exercise);
-
-//        RoutineWithExercise routine = mRoutineViewModel.getRoutineDetail(routineId);
-
         mBinding.rvExerciseList.setLayoutManager(new LinearLayoutManager(requireContext()));
         mExerciseAdapter = new ExerciseAdapter(this);
-//        ExerciseAdapter mExerciseAdapter = new ExerciseAdapter(this, routine.exercises);
         mBinding.rvExerciseList.setAdapter(mExerciseAdapter);
         mRoutineViewModel.getRoutineDetail(routineId).observe(getViewLifecycleOwner(), mExerciseAdapter::setExercises);
     }
@@ -97,22 +90,7 @@ public class WorkoutFragment extends Fragment implements
         NavController navController = NavHostFragment.findNavController(this);
         switch (v.getId()){
             case R.id.fab_add_exercise:
-//                Dialog dialog = new Dialog(getActivity());
-//                DialogNewExerciseLayoutBinding dBinding = DialogNewExerciseLayoutBinding.inflate(getLayoutInflater());
-//                dBinding.btnExerciseCreate.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        String exerciseName = dBinding.evExerciseName.getEditText().getText().toString();
-//                        Exercise exercise = new Exercise(exerciseName,false, routineId);
-//                        mRoutineViewModel.insertExercise(exercise);
-//                        Toast.makeText(getContext() ,"You have created a new exercise" ,Toast.LENGTH_LONG).show();
-//                        dialog.dismiss();
-//                    }
-//                });
-//                dialog.setTitle("Add new Routine");
-//                dialog.setContentView(dBinding.getRoot());
-//                dialog.getWindow().setLayout(1000, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                dialog.show();
+
                 Toast.makeText(getContext(),"select exercise", Toast.LENGTH_SHORT).show();
                 NavDirections action = WorkoutFragmentDirections.actionWorkoutFragmentToSelectExerciseFragment(routineId);
                 navController.navigate(action);

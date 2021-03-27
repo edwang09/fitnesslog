@@ -28,7 +28,6 @@ public abstract class FitnessLogDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-
     static FitnessLogDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (FitnessLogDatabase.class) {
@@ -48,12 +47,7 @@ public abstract class FitnessLogDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-
-            // If you want to keep data through app restarts,
-            // comment out the following block
             databaseWriteExecutor.execute(() -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
                 FitnessLogDao dao = INSTANCE.fitnessLogDao();
                 dao.deleteAllRoutine();
                 dao.deleteAllExercise();
@@ -69,12 +63,5 @@ public abstract class FitnessLogDatabase extends RoomDatabase {
         }
     };
 
-//    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-//        @Override
-//        public void migrate(SupportSQLiteDatabase database) {
-//            database.execSQL("CREATE TABLE `Exercise` (`uid` INTEGER, "
-//                    + "`name` TEXT, PRIMARY KEY(`uid`))");
-//        }
-//    }
 
 }

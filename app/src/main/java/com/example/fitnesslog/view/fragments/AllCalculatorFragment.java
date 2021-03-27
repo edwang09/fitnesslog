@@ -2,29 +2,20 @@ package com.example.fitnesslog.view.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
-import androidx.navigation.NavHostController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.fitnesslog.R;
 import com.example.fitnesslog.databinding.FragmentNavigationAllCalculatorsBinding;
 import com.example.fitnesslog.view.activities.MainActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AllCalculatorFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AllCalculatorFragment extends Fragment implements View.OnClickListener {
-
-
     private FragmentNavigationAllCalculatorsBinding mBinding;
 
 
@@ -35,15 +26,12 @@ public class AllCalculatorFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentNavigationAllCalculatorsBinding.inflate(inflater,container,false);
         mBinding.cvBmiCalculator.setOnClickListener(this);
         mBinding.cvFatCalculator.setOnClickListener(this);
         mBinding.cv1rmCalculator.setOnClickListener(this);
-
-
-
         return mBinding.getRoot();
 
     }
@@ -82,6 +70,7 @@ public class AllCalculatorFragment extends Fragment implements View.OnClickListe
             oneRmCalculator();
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();

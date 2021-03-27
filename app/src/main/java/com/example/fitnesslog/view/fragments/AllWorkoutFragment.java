@@ -1,12 +1,10 @@
 package com.example.fitnesslog.view.fragments;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -22,14 +20,12 @@ import android.widget.Toast;
 
 import com.example.fitnesslog.databinding.DialogNewRoutineLayoutBinding;
 import com.example.fitnesslog.databinding.FragmentNavigationAllWorkoutsBinding;
-import com.example.fitnesslog.model.entities.Exercise;
 import com.example.fitnesslog.model.entities.Routine;
 import com.example.fitnesslog.view.activities.MainActivity;
 import com.example.fitnesslog.view.adapters.RoutineAdapter;
 import com.example.fitnesslog.viewmodel.RoutineViewModel;
 import com.example.fitnesslog.R;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 
 import java.util.concurrent.ExecutionException;
 
@@ -64,7 +60,7 @@ public class AllWorkoutFragment extends Fragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //set up routine adapter
         mBinding.rvRoutinesList.setLayoutManager(new LinearLayoutManager(requireActivity()));
         RoutineAdapter mRoutineAdapter = new RoutineAdapter(this);
         mBinding.rvRoutinesList.setAdapter(mRoutineAdapter);
@@ -98,17 +94,11 @@ public class AllWorkoutFragment extends Fragment implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.fab_add_routine:
-                this.showRoutineDialog(new Routine());
-
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.fab_add_routine) {
+            this.showRoutineDialog(new Routine());
         }
     }
-
-
+    //dialog for adding and editing routine
     public void showRoutineDialog(Routine routine){
         Dialog dialog = new Dialog(getActivity());
         DialogNewRoutineLayoutBinding dBinding = DialogNewRoutineLayoutBinding.inflate(getLayoutInflater());
@@ -178,34 +168,26 @@ public class AllWorkoutFragment extends Fragment implements
         }
         dBinding.chipColorPicker.check(colorChipId);
         dBinding.chipTypePicker.check(typeChipId);
-        dBinding.chipColorPicker.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(ChipGroup group, int checkedId) {
-                int color = ((Chip) dBinding.getRoot().findViewById(checkedId)).getChipBackgroundColor().getDefaultColor();
-                Log.i("workout color picker", String.valueOf(color));
-            }
+        dBinding.chipColorPicker.setOnCheckedChangeListener((group, checkedId) -> {
+            int color = ((Chip) dBinding.getRoot().findViewById(checkedId)).getChipBackgroundColor().getDefaultColor();
+            Log.i("workout color picker", String.valueOf(color));
         });
-        dBinding.btnRoutineCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String routineName = dBinding.evRoutineName.getEditText().getText().toString();
-                String routineType =((Chip) dBinding.getRoot().findViewById(dBinding.chipTypePicker.getCheckedChipId())).getText().toString() ;
-                Integer routineColor = ((Chip) dBinding.getRoot().findViewById(dBinding.chipColorPicker.getCheckedChipId())).getChipBackgroundColor().getDefaultColor();
-                if (routineName != ""){
-                    routine.name = routineName;
-                    routine.type = routineType;
-                    routine.color = routineColor;
-                    long routineId = 0;
-                    try {
-                        routineId = mRoutineViewModel.insertRoutine(routine);
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(getContext() ,"You have created a new routine",Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
+        dBinding.btnRoutineCreate.setOnClickListener(v -> {
+            String routineName = dBinding.evRoutineName.getEditText().getText().toString();
+            String routineType =((Chip) dBinding.getRoot().findViewById(dBinding.chipTypePicker.getCheckedChipId())).getText().toString() ;
+            int routineColor = ((Chip) dBinding.getRoot().findViewById(dBinding.chipColorPicker.getCheckedChipId())).getChipBackgroundColor().getDefaultColor();
+            if (!routineName.equals("")){
+                routine.name = routineName;
+                routine.type = routineType;
+                routine.color = routineColor;
+                long routineId = 0;
+                try {
+                    routineId = mRoutineViewModel.insertRoutine(routine);
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(getContext() ,"You have created a new routine: " + routineId,Toast.LENGTH_LONG).show();
+                dialog.dismiss();
             }
         });
         dialog.setTitle("Add new Routine");

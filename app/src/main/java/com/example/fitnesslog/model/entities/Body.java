@@ -13,9 +13,7 @@ public class Body {
     @PrimaryKey
     @ColumnInfo(name = "time_stamp")
     public long timeStamp;
-
     public float weight;
-
     public float fat;
 
 

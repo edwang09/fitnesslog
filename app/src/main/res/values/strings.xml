@@ -38,5 +38,6 @@
     <string name="fat_calculator_calculate_button">Calculate Fat Percentage</string>
     <string name="onerm_calculator_lift">Lift</string>
     <string name="onerm_calculator_calculate_button">Calculate 1RM</string>
+    <string name="body_alarm_switch">Set Reminder</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

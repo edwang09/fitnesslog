@@ -15,11 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.fitnesslog.R;
 import com.example.fitnesslog.databinding.ActivityMainBinding;
-import com.example.fitnesslog.databinding.DialogNewRoutineLayoutBinding;
-import com.example.fitnesslog.view.fragments.NewRoutineDialogFragment;
-import com.google.android.material.textfield.TextInputLayout;
 
-public class MainActivity extends AppCompatActivity implements NewRoutineDialogFragment.NoticeDialogListener {
+public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mBinding;
     private NavController mNavController;
     private AppBarConfiguration appBarConfiguration;
@@ -31,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements NewRoutineDialogF
         View view = mBinding.getRoot();
         setContentView(view);
 
-
+        //nav controller
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_all_workouts,
@@ -57,18 +54,5 @@ public class MainActivity extends AppCompatActivity implements NewRoutineDialogF
         mBinding.navView.clearAnimation();
         mBinding.navView.animate().translationY(0f).setDuration(300);
         mBinding.navView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        DialogNewRoutineLayoutBinding dBinding = DialogNewRoutineLayoutBinding.inflate(getLayoutInflater(), null,false);
-        String str = dBinding.evRoutineName.getEditText().getText().toString();
-        String str2 = ((TextInputLayout) getLayoutInflater().inflate(R.layout.dialog_new_routine_layout,null ).getRootView().findViewById(R.id.ev_routine_name)).getEditText().getText().toString();
-        Toast.makeText(getApplicationContext(),str2,Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-
     }
 }
