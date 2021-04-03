@@ -35,7 +35,6 @@ public interface FitnessLogDao {
     @Delete
     void deleteExercise(Exercise exercise);
 
-
     @Query("DELETE FROM routines_table")
     void deleteAllRoutine();
 
@@ -43,7 +42,7 @@ public interface FitnessLogDao {
     void deleteAllExercise();
 
     @Query("SELECT * FROM routines_table")
-    LiveData<List<Routine>> getAllRoutine();
+    LiveData<List<RoutineWithExercise>> getAllRoutine();
 
     @Query("SELECT * FROM body_table")
     LiveData<List<Body>> getAllBody();
@@ -58,7 +57,5 @@ public interface FitnessLogDao {
     @Transaction
     @Query("SELECT * FROM routines_table WHERE routineId = :routineId")
     LiveData<RoutineWithExercise> getRoutineWithExercise(int routineId);
-
-
 
 }

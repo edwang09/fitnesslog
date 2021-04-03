@@ -23,8 +23,6 @@ public class SplashActivity extends AppCompatActivity {
         Handler handler = new Handler(Looper.getMainLooper());
         getWindow().getInsetsController().hide(WindowInsets.Type.statusBars());
 
-
-
         Runnable runnable = new Runnable() {
             @Override
             public void run() {

@@ -23,7 +23,6 @@ import java.util.concurrent.Executors;
 public abstract class FitnessLogDatabase extends RoomDatabase {
     public abstract FitnessLogDao fitnessLogDao();
 
-
     private static volatile FitnessLogDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =

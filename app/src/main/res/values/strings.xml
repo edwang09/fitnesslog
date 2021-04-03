@@ -39,5 +39,6 @@
     <string name="onerm_calculator_lift">Lift</string>
     <string name="onerm_calculator_calculate_button">Calculate 1RM</string>
     <string name="body_alarm_switch">Set Reminder</string>
+    <string name="no_workout_to_show">No exercise to show, add new exercise with \"NEW EXERCISE\" button</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

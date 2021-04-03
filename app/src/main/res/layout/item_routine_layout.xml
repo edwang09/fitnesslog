@@ -50,13 +50,22 @@
                 android:textSize="@dimen/_20sdp"
                 />
             <TextView
-                android:id="@+id/tv_routine_subtitle"
+                android:id="@+id/tv_routine_subtitle1"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:text="Holder Routine sub"
                 android:layout_gravity="center|left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="@dimen/_10sdp"
+                />
+            <TextView
+                android:id="@+id/tv_routine_subtitle2"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="Holder Routine sub"
+                android:layout_gravity="center|left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"
                 />
         </LinearLayout>
 

@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,7 +71,15 @@ public class WorkoutFragment extends Fragment implements
         mBinding.rvExerciseList.setAdapter(mExerciseAdapter);
         mRoutineViewModel.getRoutineDetail(routineId).observe(getViewLifecycleOwner(), mExerciseAdapter::setExercises);
     }
-
+    public void switchNoExerciseHolder(boolean on){
+        if (on){
+            mBinding.svWorkoutShowWorkout.setVisibility(View.GONE);
+            mBinding.tvWorkoutNoWorkout.setVisibility(View.VISIBLE);
+        }else{
+            mBinding.svWorkoutShowWorkout.setVisibility(View.VISIBLE);
+            mBinding.tvWorkoutNoWorkout.setVisibility(View.GONE);
+        }
+    }
     public void updateExercise(Exercise exercise){
         mRoutineViewModel.updateExercise(exercise);
     }
@@ -91,7 +98,6 @@ public class WorkoutFragment extends Fragment implements
         switch (v.getId()){
             case R.id.fab_add_exercise:
 
-                Toast.makeText(getContext(),"select exercise", Toast.LENGTH_SHORT).show();
                 NavDirections action = WorkoutFragmentDirections.actionWorkoutFragmentToSelectExerciseFragment(routineId);
                 navController.navigate(action);
                 break;

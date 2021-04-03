@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 public class RoutineViewModel extends AndroidViewModel {
     private FitnessLogRepository mRepository;
-    private final LiveData<List<Routine>> mAllRoutine;
+    private final LiveData<List<RoutineWithExercise>> mAllRoutine;
 
 
     public RoutineViewModel(@NonNull Application application) {
@@ -26,7 +26,7 @@ public class RoutineViewModel extends AndroidViewModel {
         mAllRoutine = mRepository.getAllRoutines();
     }
 
-    public LiveData<List<Routine>> getAllRoutine(){
+    public LiveData<List<RoutineWithExercise>> getAllRoutine(){
         return mAllRoutine;
     }
     public LiveData<List<Exercise>> getAllExercise(){

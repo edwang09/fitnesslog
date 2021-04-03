@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.fitnesslog.databinding.DialogNewRoutineLayoutBinding;
 import com.example.fitnesslog.databinding.FragmentNavigationAllWorkoutsBinding;
@@ -79,7 +78,6 @@ public class AllWorkoutFragment extends Fragment implements
         if (requireActivity() instanceof MainActivity){
             ((MainActivity) getActivity()).hideBottomNavigationView();
         }
-        Toast.makeText(getContext(),"go to routine", Toast.LENGTH_SHORT).show();
         NavController navController = NavHostFragment.findNavController(this);
         NavDirections action = AllWorkoutFragmentDirections.actionNavigationAllWorkoutsToWorkoutFragment(routineId);
         navController.navigate(action);
@@ -89,19 +87,22 @@ public class AllWorkoutFragment extends Fragment implements
         mRoutineViewModel.deleteRoutine(routine);
     }
     public void editRoutine(Routine routine){
-        this.showRoutineDialog(routine);
+        this.showRoutineDialog(routine, true);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fab_add_routine) {
-            this.showRoutineDialog(new Routine());
+            this.showRoutineDialog(new Routine(), false);
         }
     }
     //dialog for adding and editing routine
-    public void showRoutineDialog(Routine routine){
+    public void showRoutineDialog(Routine routine, boolean edit){
         Dialog dialog = new Dialog(getActivity());
         DialogNewRoutineLayoutBinding dBinding = DialogNewRoutineLayoutBinding.inflate(getLayoutInflater());
+        if (edit){
+            dBinding.btnRoutineCreate.setText("Update");
+        }
         dBinding.evRoutineName.getEditText().setText(routine.name);
         int typeChipId = dBinding.chipTypeMonday.getId();
         int colorChipId = dBinding.chipColorRed.getId();
@@ -186,7 +187,6 @@ public class AllWorkoutFragment extends Fragment implements
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(getContext() ,"You have created a new routine: " + routineId,Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });

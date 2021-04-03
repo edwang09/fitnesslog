@@ -151,6 +151,11 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
         this.mExercises = routineWithExercise.exercises;
         this.mRoutine = routineWithExercise.routine;
+        if (mExercises.size()==0){
+            fragment.switchNoExerciseHolder(true);
+        }else{
+            fragment.switchNoExerciseHolder(false);
+        }
         notifyDataSetChanged();
     }
 

@@ -20,6 +20,8 @@ import com.example.fitnesslog.R;
 import com.example.fitnesslog.databinding.ItemRoutineLayoutBinding;
 import com.example.fitnesslog.model.entities.Exercise;
 import com.example.fitnesslog.model.entities.Routine;
+import com.example.fitnesslog.model.pojo.RoutineWithExercise;
+import com.example.fitnesslog.utils.Constants;
 import com.example.fitnesslog.view.fragments.AllWorkoutFragment;
 
 
@@ -28,7 +30,7 @@ import java.util.Date;
 import java.util.List;
 
 public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHolder> {
-    private List<Routine> mRoutines;
+    private List<RoutineWithExercise> mRoutines;
     private final Context context;
     private final AllWorkoutFragment fragment;
 
@@ -48,15 +50,23 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Routine r = mRoutines.get(position);
+        Routine r = mRoutines.get(position).routine;
+        int exerciseCount = mRoutines.get(position).exercises.size();
         holder.flBackground.setBackgroundColor(r.color);
         holder.tvRoutineTitle.setText(r.name);
         if (r.lastTrained != 0){
-            holder.tvRoutineSubtitle.setText("Last time Trained " + ((new Date()).getTime()- (new Date(r.lastTrained)).getTime())/(1000*60*60 * 24) + " days ago");
+            long day = ((new Date()).getTime()- (new Date(r.lastTrained)).getTime())/(1000*60*60 * 24);
+            if (day == 0){
+                holder.tvRoutineSubtitle1.setText("Last trained today");
+            }else{
+                holder.tvRoutineSubtitle1.setText("Last time trained " + day + " days ago");
+            }
         }else{
-            holder.tvRoutineSubtitle.setText("You have never trained this routine yet.");
+            holder.tvRoutineSubtitle1.setText("You have never trained this routine yet.");
         }
-        holder.tvType.setText(r.type);
+        holder.tvRoutineSubtitle2.setText("This routine contains " + exerciseCount +" exercises.");
+        String Schedule = Constants.getScheduleMap().get(r.type);
+        holder.tvType.setText(Schedule);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,12 +101,12 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
         return mRoutines.size();
     }
 
-    public void setRoutines(List<Routine> mRoutines) {
+    public void setRoutines(List<RoutineWithExercise> mRoutines) {
         this.mRoutines = mRoutines;
 
         Log.i("Routine Adapter", "set Routine");
-        for (Routine r : mRoutines){
-            Log.i("Routine ", String.valueOf(r.routineId));
+        for (RoutineWithExercise r : mRoutines){
+            Log.i("Routine ", String.valueOf(r.routine.routineId));
         }
         notifyDataSetChanged();
     }
@@ -105,14 +115,16 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
         private final FrameLayout flBackground;
         private final TextView tvType;
         private final TextView tvRoutineTitle;
-        private final TextView tvRoutineSubtitle;
+        private final TextView tvRoutineSubtitle1;
+        private final TextView tvRoutineSubtitle2;
         private final ImageButton ibMore;
         public ViewHolder(@NonNull ItemRoutineLayoutBinding itemView ) {
             super(itemView.getRoot());
             this.flBackground = itemView.flBackground;
             this.tvType = itemView.tvType;
             this.tvRoutineTitle = itemView.tvRoutineTitle;
-            this.tvRoutineSubtitle = itemView.tvRoutineSubtitle;
+            this.tvRoutineSubtitle1 = itemView.tvRoutineSubtitle1;
+            this.tvRoutineSubtitle2 = itemView.tvRoutineSubtitle2;
             this.ibMore = itemView.ibMore;
         }
     }

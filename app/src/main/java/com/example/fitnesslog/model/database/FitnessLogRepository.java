@@ -15,7 +15,7 @@ import java.util.concurrent.Future;
 
 public class FitnessLogRepository {
     private FitnessLogDao mFitnessLogDao;
-    private LiveData<List<Routine>> mAllRoutines;
+    private LiveData<List<RoutineWithExercise>> mAllRoutines;
 
 
     public FitnessLogRepository(Application application) {
@@ -24,7 +24,7 @@ public class FitnessLogRepository {
         mAllRoutines = mFitnessLogDao.getAllRoutine();
     }
 
-    public LiveData<List<Routine>> getAllRoutines(){
+    public LiveData<List<RoutineWithExercise>> getAllRoutines(){
         return mAllRoutines;
     }
     public LiveData<List<Body>> getAllBody(){

@@ -93,8 +93,8 @@ public class AllBodyFragment extends Fragment implements  View.OnClickListener{
     public void setBody(List<Body> bodies){
 //        buildChart(bodies);
         if (bodies != null && bodies.size() >= 1){
-            mBinding.tvBodyWeight.setText(String.valueOf(bodies.get(0).weight));
-            mBinding.tvBodyFat.setText(String.valueOf(bodies.get(0).fat));
+            mBinding.tvBodyWeight.setText(String.valueOf(bodies.get(bodies.size()-1).weight));
+            mBinding.tvBodyFat.setText(String.valueOf(bodies.get(bodies.size()-1).fat));
         }
     }
 
@@ -267,9 +267,7 @@ public class AllBodyFragment extends Fragment implements  View.OnClickListener{
                 @Override
                 public void onClick(View v) {
                     float fat = Float.parseFloat(dBinding.outlinedTextField.getEditText().getText().toString());
-//                        String input = dBinding.outlinedTextField.getEditText().getText().toString();
                     mBinding.tvBodyFat.setText(String.format(Locale.US, "%.1f", fat));
-                    Toast.makeText(getContext() ,"You have edited your fat",Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                 }
             });
@@ -286,7 +284,6 @@ public class AllBodyFragment extends Fragment implements  View.OnClickListener{
                 public void onClick(View v) {
                     float weight = Float.parseFloat(dBinding.outlinedTextField.getEditText().getText().toString());
                     mBinding.tvBodyWeight.setText(String.format(Locale.US, "%.1f", weight));
-                    Toast.makeText(getContext() ,"You have edited your weight",Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                 }
             });

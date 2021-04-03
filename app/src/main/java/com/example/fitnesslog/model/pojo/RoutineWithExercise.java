@@ -18,5 +18,4 @@ public class RoutineWithExercise {
     @Relation(parentColumn = "routineId", entityColumn = "parentRoutineId")
     public List<Exercise> exercises;
 
-
 }
