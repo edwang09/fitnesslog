@@ -19,9 +19,12 @@ import com.example.fitnesslog.databinding.FragmentSelectExerciseBinding;
 import com.example.fitnesslog.databinding.FragmentWorkoutBinding;
 import com.example.fitnesslog.model.entities.Exercise;
 import com.example.fitnesslog.utils.ExerciseItem;
+import com.example.fitnesslog.view.adapters.BodyTabAdapter;
 import com.example.fitnesslog.view.adapters.ExerciseAdapter;
 import com.example.fitnesslog.view.adapters.ExerciseItemAdapter;
+import com.example.fitnesslog.view.adapters.ExerciseItemTabAdapter;
 import com.example.fitnesslog.viewmodel.RoutineViewModel;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +36,6 @@ public class SelectExerciseFragment extends Fragment {
     private FragmentSelectExerciseBinding mBinding;
     private RoutineViewModel mRoutineViewModel;
     private int routineId;
-    private ExerciseItemAdapter mExerciseItemAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -46,6 +48,11 @@ public class SelectExerciseFragment extends Fragment {
                              Bundle savedInstanceState) {
         //view binding
         mBinding = FragmentSelectExerciseBinding.inflate(getLayoutInflater());
+
+        //pager adapter
+        ExerciseItemTabAdapter exerciseItemTabAdapter = new ExerciseItemTabAdapter(getChildFragmentManager(),0, this);
+        mBinding.VPExerciseItemSelect.setAdapter(exerciseItemTabAdapter);
+
         return mBinding.getRoot();
     }
 
@@ -55,12 +62,10 @@ public class SelectExerciseFragment extends Fragment {
 
         assert getArguments() != null;
         routineId = SelectExerciseFragmentArgs.fromBundle(getArguments()).getRoutineId();
-        mBinding.rvExerciseList.setLayoutManager(new LinearLayoutManager(requireContext()));
-        mExerciseItemAdapter = new ExerciseItemAdapter(this);
-        mBinding.rvExerciseList.setAdapter(mExerciseItemAdapter);
+
     }
     public void selectExercise(ExerciseItem exerciseItem){
-        Exercise exercise = new Exercise(exerciseItem.name,false, routineId);
+        Exercise exercise = new Exercise(exerciseItem.name, routineId, exerciseItem.imageResource, exerciseItem.hasResistance,exerciseItem.hasSpeed, exerciseItem.hasDuration, exerciseItem.hasRep );
         mRoutineViewModel.insertExercise(exercise);
         NavController navController = NavHostFragment.findNavController(this);
         navController.popBackStack();

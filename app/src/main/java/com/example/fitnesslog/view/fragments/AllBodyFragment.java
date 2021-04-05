@@ -30,6 +30,7 @@ import com.example.fitnesslog.databinding.DialogBodyInputBinding;
 import com.example.fitnesslog.databinding.FragmentNavigationAllBodiesBinding;
 import com.example.fitnesslog.application.BodyNotificationWorker;
 import com.example.fitnesslog.model.entities.Body;
+import com.example.fitnesslog.utils.Constants;
 import com.example.fitnesslog.view.activities.MainActivity;
 import com.example.fitnesslog.view.adapters.BodyTabAdapter;
 import com.example.fitnesslog.viewmodel.RoutineViewModel;
@@ -92,9 +93,14 @@ public class AllBodyFragment extends Fragment implements  View.OnClickListener{
 
     public void setBody(List<Body> bodies){
 //        buildChart(bodies);
-        if (bodies != null && bodies.size() >= 1){
-            mBinding.tvBodyWeight.setText(String.valueOf(bodies.get(bodies.size()-1).weight));
-            mBinding.tvBodyFat.setText(String.valueOf(bodies.get(bodies.size()-1).fat));
+        for (Body b : bodies){
+            Log.i("all body weight", String.valueOf(b.weight));
+            Log.i("all body fat", String.valueOf(b.fat));
+            Log.i("all body date", String.valueOf(b.timeStamp));
+        }
+        if (bodies != null && bodies.size() > 0){
+            mBinding.tvBodyWeight.setText(String.valueOf(bodies.get(0).weight));
+            mBinding.tvBodyFat.setText(String.valueOf(bodies.get(0).fat));
         }
     }
 
@@ -210,9 +216,13 @@ public class AllBodyFragment extends Fragment implements  View.OnClickListener{
     }
     private Notification getNotification () {
         String NOTIFICATION_CHANNEL_ID = "10001" ;
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.putExtra(Constants.NOTIFICATION_ID, "body");
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0 , intent,0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "default");
-        builder.setContentTitle( "Body Notification" ) ;
-        builder.setContentText("content") ;
+        builder.setContentTitle( "Time to record your weight" ) ;
+        builder.setContentText("It is time to keep track of your weight and/or fat percentage, doing this helps your achieve your fitness goal.") ;
+        builder.setContentIntent(pendingIntent);
         builder.setSmallIcon(R.drawable.ic_heart) ;
         builder.setAutoCancel( true ) ;
         builder.setChannelId( NOTIFICATION_CHANNEL_ID ) ;
@@ -245,6 +255,7 @@ public class AllBodyFragment extends Fragment implements  View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v.getId()== mBinding.fabBodyFatMinus.getId()) {
+//            populateDummyData();
             mBinding.tvBodyFat.setText(String.format(Locale.US, "%.1f", Float.parseFloat(mBinding.tvBodyFat.getText().toString()) - 0.1));
         }else if(v.getId()== mBinding.fabBodyFatPlus.getId()) {
             mBinding.tvBodyFat.setText(String.format(Locale.US, "%.1f", Float.parseFloat(mBinding.tvBodyFat.getText().toString()) + 0.1));
@@ -290,6 +301,19 @@ public class AllBodyFragment extends Fragment implements  View.OnClickListener{
             dialog.setTitle("Weight");
             dialog.setContentView(dBinding.getRoot());
             dialog.show();
+        }
+    }
+
+
+    public void populateDummyData(){
+        float[] weights = new float[]{(float) 140.5, (float) 140.7, (float) 142.6, (float) 141.7, (float) 142.2, (float) 143.2, (float) 142.6, (float) 143.1};
+        float[] fats = new float[]{(float) 12.3, (float) 12.4, (float) 12.6, (float) 12.2, (float) 12.7, (float) 12.3, (float) 12.4, (float) 12.6};
+        for (int i =0; i < weights.length-2; i++){
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(new Date());
+            cal.add(Calendar.DATE, -i);
+            Body body = new Body(weights[i],fats[i],TimeUnit.MILLISECONDS.toDays(cal.getTime().getTime()));
+            mRoutineViewModel.insertBody(body);
         }
     }
 }

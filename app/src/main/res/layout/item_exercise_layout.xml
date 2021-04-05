@@ -30,8 +30,8 @@
             android:padding="16dp">
             <ImageView
                 android:id="@+id/iv_exercise_image"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 app:srcCompat="@drawable/deadlift" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,19 +56,14 @@
         </LinearLayout>
     </FrameLayout>
 
-        <TextView
-            android:id="@+id/tv_exercise_completion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="2 Sets Completed (holder)"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="?android:attr/textColorSecondary" />
 
         <LinearLayout
+            android:id="@+id/lv_exercise_resistance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
             <TextView
                 android:id="@+id/tv_exercise_resistance_title"
                 android:layout_width="wrap_content"
@@ -90,30 +85,89 @@
                 android:valueTo="200.0" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/lv_exercise_rep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
             <TextView
-                android:id="@+id/tv_exercise_rep_or_duration_title"
+                android:id="@+id/tv_exercise_rep_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Repetition: " />
             <TextView
-                android:id="@+id/tv_exercise_rep_or_duration"
+                android:id="@+id/tv_exercise_rep"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="8" />
             <com.google.android.material.slider.Slider
-                android:id="@+id/sv_rep_or_duration_slider"
+                android:id="@+id/sv_rep_slider"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:stepSize="1"
                 android:valueFrom="1"
                 android:valueTo="20" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lv_exercise_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/tv_exercise_duration_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Duration(min): " />
+            <TextView
+                android:id="@+id/tv_exercise_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="20" />
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sv_duration_slider"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:stepSize="1"
+                android:valueFrom="1"
+                android:valueTo="120" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lv_exercise_speed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/tv_exercise_speed_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Speed(mph): " />
+            <TextView
+                android:id="@+id/tv_exercise_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="5.0" />
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sv_speed_slider"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:stepSize="0.1"
+                android:valueFrom="0"
+                android:valueTo="10" />
+        </LinearLayout>
+
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
@@ -148,7 +202,7 @@
             android:contentDescription="@string/complete_exercise_fab_description"
             android:text="@string/complete_exercise_fab_label"
             app:icon="@drawable/ic_check"
-            style="?attr/materialButtonOutlinedStyle"
+            style="?attr/materialButtonStyle"
         />
 
     </LinearLayout>

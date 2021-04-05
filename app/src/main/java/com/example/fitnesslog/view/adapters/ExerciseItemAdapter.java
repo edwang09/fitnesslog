@@ -19,6 +19,7 @@ import com.example.fitnesslog.model.entities.Routine;
 import com.example.fitnesslog.utils.Constants;
 import com.example.fitnesslog.utils.ExerciseItem;
 import com.example.fitnesslog.view.fragments.SelectExerciseFragment;
+import com.example.fitnesslog.view.fragments.SelectExerciseTabFragment;
 import com.example.fitnesslog.view.fragments.WorkoutFragment;
 import com.google.android.material.slider.Slider;
 
@@ -26,16 +27,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseItemAdapter extends RecyclerView.Adapter<ExerciseItemAdapter.ViewHolder> {
-    private SelectExerciseFragment fragment;
+    private SelectExerciseTabFragment fragment;
     private Context context;
     private List<ExerciseItem> mExerciseItems;
     private Routine mRoutine;
+    private String tabName;
 
 
-    public ExerciseItemAdapter(SelectExerciseFragment fragment){
+    public ExerciseItemAdapter(SelectExerciseTabFragment fragment, String tabName){
         this.fragment = fragment;
+        this.tabName = tabName;
         this.context = fragment.getContext();
-        mExerciseItems = Constants.getExerciseItemList();
+        mExerciseItems = Constants.getExerciseItemList(tabName);
     }
     @NonNull
     @Override
@@ -47,6 +50,7 @@ public class ExerciseItemAdapter extends RecyclerView.Adapter<ExerciseItemAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvExerciseItem.setText(mExerciseItems.get(position).name);
+        holder.ivExerciseImage.setImageResource(mExerciseItems.get(position).imageResource);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

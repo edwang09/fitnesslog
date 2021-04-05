@@ -48,7 +48,7 @@ public interface FitnessLogDao {
     LiveData<List<Body>> getAllBody();
 
 
-    @Query("SELECT * FROM body_table ORDER BY time_stamp ASC LIMIT 10")
+    @Query("SELECT * FROM body_table ORDER BY time_stamp DESC LIMIT 10")
     LiveData<List<Body>> getRecentBody();
 
     @Query("SELECT * FROM exercise_table")

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -57,57 +59,113 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final float[] resistance = {mExercises.get(position).resistance};
-        final float[] repOrDuration = {mExercises.get(position).repOrDuration};
-
         holder.tvExerciseTitle.setText(mExercises.get(position).name);
-        holder.tvExerciseSubtitle.setText("Last time ...");
-        holder.tvExerciseRepOrDurationTitle.setText("Repetition:");
-        holder.tvExerciseResistanceTitle.setText("Resistance (lbs):");
-        holder.svExerciseResistanceSlider.setValue(mExercises.get(position).resistance);
-        holder.svRepOrDurationSlider.setValue(mExercises.get(position).repOrDuration);
-        holder.tvExerciseResistance.setText(String.valueOf(mExercises.get(position).resistance));
-        holder.tvExerciseRepOrDuration.setText(String.valueOf(mExercises.get(position).repOrDuration));
-        holder.svExerciseResistanceSlider.addOnChangeListener(new Slider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                holder.tvExerciseResistance.setText(String.valueOf(value));
-                resistance[0] = value;
-            }
-        });
-        holder.svExerciseResistanceSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
+        holder.ivExerciseImage.setImageResource(mExercises.get(position).image);
+        holder.tvExerciseSubtitle.setText("Complete " + mExercises.get(position).lastTime + " Sets (or more) of this exercise.");
+        if(mExercises.get(position).hasResistance) {
+            final float[] resistance = {mExercises.get(position).resistance};
+            holder.tvExerciseResistanceTitle.setText("Resistance (lbs):");
+            holder.svExerciseResistanceSlider.setValue(resistance[0]);
+            holder.tvExerciseResistance.setText(String.valueOf(resistance[0]));
+            holder.svExerciseResistanceSlider.addOnChangeListener(new Slider.OnChangeListener() {
+                @Override
+                public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                    holder.tvExerciseResistance.setText(String.valueOf(value));
+                    resistance[0] = value;
+                }
+            });
+            holder.svExerciseResistanceSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(@NonNull Slider slider) {
 
-            }
+                }
 
-            @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                mExercises.get(position).resistance = resistance[0];
-                fragment.updateExercise(mExercises.get(position));
-            }
-        });
+                @Override
+                public void onStopTrackingTouch(@NonNull Slider slider) {
+                    mExercises.get(position).resistance = resistance[0];
+                    fragment.updateExercise(mExercises.get(position));
+                }
+            });
+            holder.lvExerciseResistance.setVisibility(View.VISIBLE);
+        }
+        if(mExercises.get(position).hasDuration) {
+            final int[] duration = {mExercises.get(position).duration};
+            holder.tvExerciseDurationTitle.setText("Duration (min):");
+            holder.svDurationSlider.setValue(duration[0]);
+            holder.tvExerciseDuration.setText(String.valueOf(duration[0]));
+            holder.svDurationSlider.addOnChangeListener(new Slider.OnChangeListener() {
+                @Override
+                public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                    holder.tvExerciseDuration.setText(String.valueOf(value));
+                    duration[0] = (int) value;
+                }
+            });
+            holder.svDurationSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(@NonNull Slider slider) {
 
-        holder.svRepOrDurationSlider.addOnChangeListener(new Slider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                holder.tvExerciseRepOrDuration.setText(String.valueOf((int) value));
-                repOrDuration[0] = value;
-            }
-        });
+                }
 
-        holder.svRepOrDurationSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
+                @Override
+                public void onStopTrackingTouch(@NonNull Slider slider) {
+                    mExercises.get(position).duration = duration[0];
+                    fragment.updateExercise(mExercises.get(position));
+                }
+            });
+            holder.lvExerciseDuration.setVisibility(View.VISIBLE);
+        }
+        if(mExercises.get(position).hasRep) {
+            final int[] rep = {mExercises.get(position).rep};
+            holder.tvExerciseRepTitle.setText("Repetition : ");
+            holder.svRepSlider.setValue(rep[0]);
+            holder.tvExerciseRep.setText(String.valueOf(rep[0]));
+            holder.svRepSlider.addOnChangeListener(new Slider.OnChangeListener() {
+                @Override
+                public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                    holder.tvExerciseRep.setText(String.valueOf(value));
+                    rep[0] = (int) value;
+                }
+            });
+            holder.svRepSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(@NonNull Slider slider) {
 
-            }
+                }
 
-            @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                mExercises.get(position).repOrDuration = (int) repOrDuration[0];
-                fragment.updateExercise(mExercises.get(position));
-            }
-        });
+                @Override
+                public void onStopTrackingTouch(@NonNull Slider slider) {
+                    mExercises.get(position).rep = rep[0];
+                    fragment.updateExercise(mExercises.get(position));
+                }
+            });
+            holder.lvExerciseRep.setVisibility(View.VISIBLE);
+        }
+        if(mExercises.get(position).hasSpeed) {
+            final float[] speed = {mExercises.get(position).speed};
+            holder.tvExerciseSpeedTitle.setText("Speed (mph):");
+            holder.svSpeedSlider.setValue(speed[0]);
+            holder.tvExerciseSpeed.setText(String.valueOf(speed[0]));
+            holder.svSpeedSlider.addOnChangeListener(new Slider.OnChangeListener() {
+                @Override
+                public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                    holder.tvExerciseSpeed.setText(String.valueOf(value));
+                    speed[0] = value;
+                }
+            });
+            holder.svSpeedSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(@NonNull Slider slider) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(@NonNull Slider slider) {
+                    mExercises.get(position).speed = speed[0];
+                    fragment.updateExercise(mExercises.get(position));
+                }
+            });
+            holder.lvExerciseSpeed.setVisibility(View.VISIBLE);
+        }
 
         holder.btnCompleteExercise.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,12 +179,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(context, holder.ibMore);
-                popup.getMenuInflater().inflate(R.menu.routine_menu, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.exercise_menu, popup.getMenu());
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.action_delete_routine){
+                        if (item.getItemId() == R.id.action_delete_exercise){
                             fragment.deleteExercise(mExercises.get(position));
                         }
                         return true;
@@ -161,6 +219,11 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
     public void completeWorkout(){
         mRoutine.lastTrained = (new Date()).getTime();
+        for (Exercise exercise : mExercises){
+            exercise.lastTime = exercise.setNumber;
+            exercise.setNumber = 0;
+            fragment.updateExercise(exercise);
+        }
         fragment.updateRoutine(mRoutine);
     }
 
@@ -169,13 +232,24 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         private final TextView tvExerciseSubtitle;
         private final TextView tvExerciseResistanceTitle;
         private final TextView tvExerciseResistance;
-        private final TextView tvExerciseRepOrDurationTitle;
-        private final TextView tvExerciseRepOrDuration;
+        private final TextView tvExerciseRepTitle;
+        private final TextView tvExerciseRep;
+        private final TextView tvExerciseDurationTitle;
+        private final TextView tvExerciseDuration;
+        private final TextView tvExerciseSpeedTitle;
+        private final TextView tvExerciseSpeed;
         private final Slider svExerciseResistanceSlider;
-        private final Slider svRepOrDurationSlider;
+        private final Slider svRepSlider;
+        private final Slider svDurationSlider;
+        private final Slider svSpeedSlider;
         private final Button btnCompleteExercise;
         private final TextView tvCompletedSet;
         private final ImageButton ibMore;
+        private final LinearLayout lvExerciseDuration;
+        private final LinearLayout lvExerciseRep;
+        private final LinearLayout lvExerciseResistance;
+        private final LinearLayout lvExerciseSpeed;
+        private final ImageView ivExerciseImage;
         public ViewHolder(@NonNull ItemExerciseLayoutBinding itemView ) {
             super(itemView.getRoot());
             this.tvExerciseTitle = itemView.tvExerciseTitle;
@@ -183,12 +257,27 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             this.tvExerciseResistanceTitle = itemView.tvExerciseResistanceTitle;
             this.tvExerciseResistance = itemView.tvExerciseResistance;
             this.svExerciseResistanceSlider = itemView.svExerciseResistanceSlider;
-            this.svRepOrDurationSlider = itemView.svRepOrDurationSlider;
-            this.tvExerciseRepOrDurationTitle = itemView.tvExerciseRepOrDurationTitle;
-            this.tvExerciseRepOrDuration = itemView.tvExerciseRepOrDuration;
+            this.svRepSlider = itemView.svRepSlider;
+            this.tvExerciseRepTitle = itemView.tvExerciseRepTitle;
+            this.tvExerciseRep = itemView.tvExerciseRep;
             this.btnCompleteExercise = itemView.btnCompleteExercise;
+
+            this.tvExerciseDurationTitle = itemView.tvExerciseDurationTitle;
+            this.tvExerciseDuration = itemView.tvExerciseDuration;
+            this.svDurationSlider = itemView.svDurationSlider;
+
+            this.tvExerciseSpeedTitle = itemView.tvExerciseSpeedTitle;
+            this.tvExerciseSpeed = itemView.tvExerciseSpeed;
+            this.svSpeedSlider = itemView.svSpeedSlider;
+
+
             this.tvCompletedSet = itemView.tvCompletedSet;
             this.ibMore = itemView.ibMore;
+            this.lvExerciseDuration = itemView.lvExerciseDuration;
+            this.lvExerciseRep = itemView.lvExerciseRep;
+            this.lvExerciseResistance = itemView.lvExerciseResistance;
+            this.lvExerciseSpeed = itemView.lvExerciseSpeed;
+            this.ivExerciseImage = itemView.ivExerciseImage;
 
         }
     }

@@ -11,6 +11,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.fitnesslog.R;
 import com.example.fitnesslog.model.entities.Body;
 import com.example.fitnesslog.model.entities.Exercise;
 import com.example.fitnesslog.model.entities.Routine;
@@ -19,7 +20,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {Routine.class, Exercise.class, Body.class}, version = 8, exportSchema = false)
+@Database(entities = {Routine.class, Exercise.class, Body.class}, version = 10, exportSchema = false)
 public abstract class FitnessLogDatabase extends RoomDatabase {
     public abstract FitnessLogDao fitnessLogDao();
 
@@ -54,7 +55,7 @@ public abstract class FitnessLogDatabase extends RoomDatabase {
                     "test routine", "MON",
                         Color.parseColor("#4287f5")
                 );
-                Exercise exercise = new Exercise("Bench Press",true,  routine.routineId);
+                Exercise exercise = new Exercise("Bench Press", routine.routineId, R.drawable.barbell_bench_press,true, true, false,false);
                 Log.i("Database","Call back run");
                 dao.insertRoutine(routine);
                 dao.insertExercise(exercise);

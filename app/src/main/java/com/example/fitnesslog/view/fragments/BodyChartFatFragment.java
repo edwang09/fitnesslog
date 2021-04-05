@@ -28,6 +28,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,10 +51,14 @@ public class BodyChartFatFragment extends Fragment {
     public void buildChart(List<Body> bodies){
 
         List<Entry> entries = new ArrayList<Entry>();
+        long timeStampToday = TimeUnit.MILLISECONDS.toDays((new Date()).getTime());
         for (Body body : bodies) {
             // turn your data into Entry objects
-            entries.add(new Entry(body.timeStamp, body.fat));
+            if (body.timeStamp > timeStampToday -10){
+                entries.add(new Entry(body.timeStamp, body.fat));
+            }
         }
+        Collections.reverse(entries);
         LineDataSet dataSet = new LineDataSet(entries, "Fat %");
         LineData lineData = new LineData(dataSet);
 

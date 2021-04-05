@@ -40,5 +40,10 @@
     <string name="onerm_calculator_calculate_button">Calculate 1RM</string>
     <string name="body_alarm_switch">Set Reminder</string>
     <string name="no_workout_to_show">No exercise to show, add new exercise with \"NEW EXERCISE\" button</string>
+    <string name="exercise_cardio">Cardio</string>
+    <string name="exercise_dumbbell">Dumbells</string>
+    <string name="exercise_barbell">Barbells</string>
+    <string name="exercise_machine">Machine Workouts</string>
+    <string name="exercise_self_weight">Self Weight</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.fitnesslog.R;
 import com.example.fitnesslog.databinding.ActivityMainBinding;
+import com.example.fitnesslog.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mBinding;
@@ -37,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, mNavController, appBarConfiguration);
         NavigationUI.setupWithNavController(mBinding.navView, mNavController);
 
+        //handle notification click
+        if (getIntent().hasExtra(Constants.NOTIFICATION_ID)) {
+            String notificationId = getIntent().getStringExtra(Constants.NOTIFICATION_ID);
+            Log.i("Notification Id", "notificationId is" + notificationId);
+            mBinding.navView.setSelectedItemId(R.id.navigation_all_bodies);
+        }
     }
 
     @Override

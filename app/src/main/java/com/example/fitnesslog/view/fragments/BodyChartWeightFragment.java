@@ -29,6 +29,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,13 +51,18 @@ public class BodyChartWeightFragment extends Fragment {
     }
 
     public void buildChart(List<Body> bodies){
-
         List<Entry> entries = new ArrayList<>();
+        long timeStampToday = TimeUnit.MILLISECONDS.toDays((new Date()).getTime());
         for (Body body : bodies) {
             // turn your data into Entry objects
-            Log.i("Weight Chart",String.valueOf(body.timeStamp));
-            entries.add(new Entry(body.timeStamp, body.weight));
+            Log.i("all body chart weight", String.valueOf(body.weight));
+            Log.i("all body chart fat", String.valueOf(body.fat));
+            Log.i("all body chart date", String.valueOf(body.timeStamp));
+            if (body.timeStamp > timeStampToday -10){
+                entries.add(new Entry(body.timeStamp, body.weight));
+            }
         }
+        Collections.reverse(entries);
         LineDataSet dataSet = new LineDataSet(entries, "Weight");
         LineData lineData = new LineData(dataSet);
 
