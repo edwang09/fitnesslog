@@ -52,7 +52,7 @@ Download and install Android Studio: https://developer.android.com/studio
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/edwang09/odrexpress.git
+   git clone https://github.com/edwang09/fitnesslog.git
    ```
 2. Build the application using Android Studio. 
 
